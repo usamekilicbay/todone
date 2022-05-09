@@ -1,0 +1,37 @@
+<div
+  #todoItem
+  (mouseleave)="mouseLeave()"
+  (mousedown)="mouseStart($event)"
+  (mouseup)="mouseEnd($event)"
+  (mousemove)="mouseMove($event)"
+  class="todo-item flex justify-between py-0.5 px-1 rounded-sm border cursor-grab
+   {{ index != 0 ? 'mt-1.5' : '' }}
+   {{ getClassBorderClass() }}
+  "
+>
+  <div class="mr-2">
+    <p
+      class="todo-context select-none {{ isTaskDone() ? 'line-through ' : '' }}"
+    >
+      {{ todo.context }}
+    </p>
+  </div>
+  <div class="">
+    <button
+      (click)="todo.status != TaskStatus.Todo ? null : removeItem()"
+      class="todo-remove-button"
+    >
+      <div *ngIf="todo.status == TaskStatus.Todo">
+        <fa-icon [icon]="faSquareMinus" class="animate-pulse"></fa-icon>
+      </div>
+      <div *ngIf="todo.status == TaskStatus.InProcess">
+        <fa-icon [icon]="faClock" class="animate-ping"></fa-icon>
+      </div>
+      <div *ngIf="todo.status == TaskStatus.Done">
+        <fa-icon [icon]="faSquareCheck" class="animate-pulse"></fa-icon>
+      </div>
+    </button>
+  </div>
+</div>
+
+<!-- } isTaskDone() ? faSquareCheck : faSquareMinus"></fa-icon> -->

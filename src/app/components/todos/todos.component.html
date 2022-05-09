@@ -1,0 +1,28 @@
+<div class="todo-container flex h-screen justify-center items-center">
+  <div class="md:w-2/5 xs: w-4/6">
+    <div class="mb-3">
+      <form (submit)="addTodo()" class="flex items-center">
+        <input
+          [(ngModel)]="inputTodo"
+          type="text"
+          name="to-do"
+          id=""
+          placeholder="Enter a to-do..."
+          class="w-10/12 rounded-sm border border-gray-500"
+        />
+        <button type="submit" class="todo-submit ml-3">
+          <fa-icon [icon]="faSquarePlus" size="2x"></fa-icon>
+        </button>
+      </form>
+    </div>
+    <div class="overflow-x-hidden overflow-y-auto" style="height: 60vh">
+      <div
+        *ngFor="let todo of todoList; let i = index"
+        class="todo-list flex flex-col"
+      >
+        <app-todo-item (removeTodo)="removeTodo(i)" [index]="i" [todo]="todo">
+        </app-todo-item>
+      </div>
+    </div>
+  </div>
+</div>
