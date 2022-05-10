@@ -1,6 +1,36 @@
 <div class="todo-container flex h-screen justify-center items-center">
   <div class="md:w-2/5 xs: w-4/6">
-    <div class="mb-3">
+    <div class="flex justify-center">
+      <div class="">
+        <circle-progress
+          [percent]="getCompletedTodoAsPercentage()"
+          [radius]="100"
+          [outerStrokeWidth]="16"
+          [innerStrokeWidth]="8"
+          [outerStrokeColor]="getStrokeColorsByHighestPercentage()[0]"
+          [innerStrokeColor]="getStrokeColorsByHighestPercentage()[1]"
+          [animation]="true"
+          [startFromZero]="false"
+          [animationDuration]="250"
+          [showSubtitle]="false"
+          [titleFontSize]="'44'"
+        ></circle-progress>
+      </div>
+      <div class="w-1/4 font-semibold text-xl">
+        <span class="text-green-400">
+          {{ getCompletedTodoCount() }}
+        </span>
+        /
+        <span class="text-amber-400">
+          {{ getInProcessTodoCount() }}
+        </span>
+        /
+        <span class="text-fuchsia-400">
+          {{ getTodoCount() }}
+        </span>
+      </div>
+    </div>
+    <div class="my-3">
       <form (submit)="addTodo()" class="flex items-center">
         <input
           [(ngModel)]="inputTodo"
