@@ -1,13 +1,16 @@
-export enum TaskStatus {
+export enum MissionStatus {
   Todo,
   InProcess,
   Done,
 }
 
 export class Todo {
-  constructor(contex: string) {
-    this.context = contex;
+  constructor(id: string, mission: string) {
+    this.id = id;
+    this.mission = mission;
   }
-  context!: string;
-  status = TaskStatus.Todo;
+
+  id!: string;
+  mission!: string;
+  missionStatus = MissionStatus.Todo;
 }

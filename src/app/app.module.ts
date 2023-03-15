@@ -8,6 +8,7 @@ import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, TodosComponent, TodoItemComponent],
@@ -25,8 +26,14 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
       innerStrokeColor: '#C7E596',
       animationDuration: 300,
     }),
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: 'baseURL',
+      useValue: 'https://localhost:7187/api/',
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

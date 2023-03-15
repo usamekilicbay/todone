@@ -20,7 +20,7 @@ import {
   faMinusSquare,
   faSquareCheck,
 } from '@fortawesome/free-regular-svg-icons';
-import { TaskStatus, Todo } from 'src/app/models/Todo';
+import { MissionStatus, Todo } from 'src/app/models/Todo';
 
 @Component({
   selector: 'app-todo-item',
@@ -57,10 +57,10 @@ export class TodoItemComponent implements OnInit, AfterViewInit {
   }
 
   isTaskDone(): boolean {
-    return this.todo.status == TaskStatus.Done;
+    return this.todo.missionStatus == MissionStatus.Done;
   }
 
-  TaskStatus = TaskStatus;
+  TaskStatus = MissionStatus;
   startPos!: number;
   elementClientLeft!: number;
   elementOffsetLeft!: number;
@@ -72,14 +72,14 @@ export class TodoItemComponent implements OnInit, AfterViewInit {
 
   getClassBorderClass(): string {
     let returnClass = '';
-    switch (this.todo.status) {
-      case TaskStatus.Todo:
+    switch (this.todo.missionStatus) {
+      case MissionStatus.Todo:
         returnClass = 'border-fuchsia-400';
         break;
-      case TaskStatus.InProcess:
+      case MissionStatus.InProcess:
         returnClass = 'border-amber-400';
         break;
-      case TaskStatus.Done:
+      case MissionStatus.Done:
         returnClass = 'border-green-400';
         break;
     }
@@ -128,15 +128,15 @@ export class TodoItemComponent implements OnInit, AfterViewInit {
           this.dragState = DragState.HandsFree;
           return;
         }
-        switch (this.todo.status) {
-          case TaskStatus.Todo:
-            this.todo.status = TaskStatus.InProcess;
+        switch (this.todo.missionStatus) {
+          case MissionStatus.Todo:
+            this.todo.missionStatus = MissionStatus.InProcess;
             break;
-          case TaskStatus.InProcess:
-            this.todo.status = TaskStatus.Done;
+          case MissionStatus.InProcess:
+            this.todo.missionStatus = MissionStatus.Done;
             break;
-          case TaskStatus.Done:
-            this.todo.status = TaskStatus.Todo;
+          case MissionStatus.Done:
+            this.todo.missionStatus = MissionStatus.Todo;
             break;
         }
       }

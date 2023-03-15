@@ -7,7 +7,8 @@ import {
   getCareerPathTodos,
   getDotnetFullStackTodos,
 } from 'src/app/datas/exampleTodos';
-import { TaskStatus, Todo } from 'src/app/models/Todo';
+import { MissionStatus, Todo } from 'src/app/models/Todo';
+import { TodoClientService } from 'src/app/services/common/todo-client.service';
 
 @Component({
   selector: 'app-todos',
@@ -15,7 +16,7 @@ import { TaskStatus, Todo } from 'src/app/models/Todo';
   styleUrls: ['./todos.component.css'],
 })
 export class TodosComponent implements OnInit {
-  constructor() {}
+  constructor(private todoClientService: TodoClientService) {}
 
   faSquareMinus = faSquareMinus;
   faSquarePlus = faSquarePlus;
@@ -23,12 +24,16 @@ export class TodosComponent implements OnInit {
   inputTodo: string = '';
   todoList: Todo[] = [];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.todoClientService.get().subscribe((todos) => (this.todoList = todos));
+
+    console.log(this.todoList);
+  }
 
   addTodo(): void {
     if (this.inputTodo === '') return;
 
-    this.todoList.push(new Todo(this.inputTodo));
+    // this.todoList.push(new Todo(this.inputTodo));
 
     this.inputTodo = '';
 
@@ -37,7 +42,7 @@ export class TodosComponent implements OnInit {
   }
 
   done(id: number): void {
-    this.todoList[id].status = TaskStatus.Done;
+    this.todoList[id].missionStatus = MissionStatus.Done;
   }
 
   removeTodo(id: number): void {
@@ -87,7 +92,8 @@ export class TodosComponent implements OnInit {
   getInProcessTodoCount(): number {
     let inProcessTodoCount = 0;
     this.todoList.forEach((element) => {
-      if (element.status == TaskStatus.InProcess) inProcessTodoCount++;
+      if (element.missionStatus == MissionStatus.InProcess)
+        inProcessTodoCount++;
     });
 
     return inProcessTodoCount;
@@ -96,7 +102,7 @@ export class TodosComponent implements OnInit {
   getCompletedTodoCount(): number {
     let completedTodoCount = 0;
     this.todoList.forEach((element) => {
-      if (element.status == TaskStatus.Done) completedTodoCount++;
+      if (element.missionStatus == MissionStatus.Done) completedTodoCount++;
     });
 
     return completedTodoCount;
